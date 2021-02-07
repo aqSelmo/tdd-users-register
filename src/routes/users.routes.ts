@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getRepository } from 'typeorm';
-import { UserService } from '../app/services/users.service';
+import { getCustomRepository } from 'typeorm';
 
-import { User } from '../database/entities/user.entity';
+import { UserRepository } from '../app/models/users.model';
+import { UserService } from '../app/services/users.service';
 
 const route = Router();
 
@@ -15,7 +15,7 @@ interface Request {
 }
 
 route.get('/', async (request, response) => {
-  const usersRepository = getRepository(User);
+  const usersRepository = getCustomRepository(UserRepository);
 
   const users = await usersRepository.find();
 
@@ -23,7 +23,8 @@ route.get('/', async (request, response) => {
 });
 
 route.post('/', async (request, response) => {
-  const usersRepository = getRepository(User);
+  const usersRepository = getCustomRepository(UserRepository);
+
   const usersService = new UserService();
 
   const { name, login, password, email, birthday }: Request = request.body;

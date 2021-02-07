@@ -3,7 +3,7 @@ import request from 'supertest';
 import connection from '../database';
 import app from '../server';
 
-describe('ddd', () => {
+describe('HTTP users', () => {
   beforeAll(async () => {
     await connection.connectToDatabase();
   });
